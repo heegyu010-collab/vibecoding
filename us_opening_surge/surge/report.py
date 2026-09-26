@@ -25,7 +25,7 @@ COLS_KR = {
     "up_ratio": "양봉비율", "dollar_vol": "구간거래대금($)", "n_bars": "봉개수", "open": "시가",
     "close_w": "구간종료가", "prevclose": "전일종가", "shape": "형태코드", "shape_kr": "형태",
     "post_30": "이후30분수익률", "post_60": "이후60분수익률", "post_close": "종가까지수익률",
-    "post_high": "이후최고수익률", "post_low": "이후최저수익률", "broke_high": "이후고점돌파",
+    "post_high": "이후최고수익률", "post_low": "이후최저수익률", "broke_high": "이후고점2%돌파",
 }
 PAT_KR = {
     "pattern_id": "패턴ID", "category": "구분", "pattern": "패턴", "n": "표본수", "hits": "적중수",

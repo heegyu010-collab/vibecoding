@@ -131,7 +131,8 @@ def compute_features(bars: pd.DataFrame, window: int, prevclose: float, base: st
         post["post_close"] = float(all_close[-1]) / c_end - 1.0 if mins.max() >= 380 else math.nan
         post["post_high"] = float(bars["high"].to_numpy()[after].max()) / c_end - 1.0
         post["post_low"] = float(bars["low"].to_numpy()[after].min()) / c_end - 1.0
-        post["broke_high"] = float(bars["high"].to_numpy()[after].max() > H)
+        # 1센트 돌파는 의미가 없으므로 구간 고점보다 2% 이상 높게 거래돼야 돌파로 인정
+        post["broke_high"] = float(bars["high"].to_numpy()[after].max() >= H * 1.02)
     else:
         post.update(post_close=math.nan, post_high=math.nan, post_low=math.nan, broke_high=math.nan)
 

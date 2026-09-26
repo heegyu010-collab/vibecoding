@@ -14,8 +14,8 @@ OTHER_URL = "https://www.nasdaqtrader.com/dynamic/SymDir/otherlisted.txt"
 
 # 워런트/유닛/권리/우선주/채권성 상품 제외
 EXCLUDE_NAME = re.compile(
-    r"\b(warrants?|units?|rights?|preferred|preference|notes? due|debentures?|subordinated|"
-    r"trust preferred|%\s*(fixed|senior|notes))\b",
+    r"\b(?:warrants?|units?|rights?|preferred|preference|notes? due|debentures?|subordinated|"
+    r"trust preferred|%\s*(?:fixed|senior|notes))\b",
     re.I,
 )
 

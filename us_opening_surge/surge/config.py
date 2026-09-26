@@ -19,8 +19,8 @@ class Settings:
     base: str = "open"                  # open: 시가 대비 / prevclose: 전일 종가 대비(갭 포함)
     min_price: float = 1.0              # 시가 최소 가격($)
     min_window_dollar_volume: float = 1_000_000  # 30분 거래대금 최소($) - 초저유동성 종목 제외
-    max_candidates: int = 250           # 하루에 분봉을 받아볼 최대 후보 수
-    batch_size: int = 25                # 분봉 요청 묶음 크기
+    max_candidates: int = 800           # 하루에 분봉을 받아볼 최대 후보 수
+    batch_size: int = 50                # 분봉 요청 묶음 크기
     bound_tolerance: float = 0.01       # 일봉 상한(고가/시가)과 분봉 시가 차이 허용치
 
     # 회귀(백워드) 테스트
