@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import os
 import time
-from datetime import date, datetime, time as dtime, timedelta
+from datetime import date, datetime, time as dtime, timedelta, timezone
 
 import pandas as pd
 import requests
@@ -34,6 +34,11 @@ class AlpacaProvider(Provider):
 
     def _bars(self, symbols: list[str], timeframe: str, start: datetime, end: datetime) -> dict[str, list]:
         out: dict[str, list] = {}
+        # 무료 계정은 최근 15분 이내 SIP 데이터 조회가 금지됨 → 조회 끝을 16분 전으로 제한
+        latest = datetime.now(timezone.utc) - timedelta(minutes=16)
+        end = min(end, latest)
+        if start >= end:
+            return out
         params = {
             "symbols": ",".join(symbols), "timeframe": timeframe,
             "start": start.isoformat(), "end": end.isoformat(),

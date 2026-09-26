@@ -67,3 +67,20 @@ def test_alpaca_pagination_and_tz(monkeypatch):
     got = p.minute_bars(["AAA", "BBB"], date(2026, 9, 25))
     assert len(got["AAA"]) == 2 and got["AAA"].index[0].strftime("%H:%M") == "09:30"
     assert got["BBB"].index[0].strftime("%H:%M") == "15:59"
+
+
+def test_alpaca_clamps_end_to_16_minutes_ago(monkeypatch):
+    from datetime import datetime, timedelta, timezone
+    monkeypatch.setenv("ALPACA_API_KEY", "k")
+    monkeypatch.setenv("ALPACA_SECRET_KEY", "s")
+    p = alp.AlpacaProvider()
+    seen = {}
+
+    def fake_get(url, params=None, timeout=None):
+        seen.update(params)
+        return _Resp({"bars": {}, "next_page_token": None})
+
+    monkeypatch.setattr(p.session, "get", fake_get)
+    now = datetime.now(timezone.utc)
+    p._bars(["SPY"], "1Day", now - timedelta(days=5), now + timedelta(days=1))
+    assert datetime.fromisoformat(seen["end"]) <= now - timedelta(minutes=15)
